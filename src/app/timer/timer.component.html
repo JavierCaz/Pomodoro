@@ -1,0 +1,12 @@
+<div  class="timer-container"
+[class.pomodoro]="this.timerState=='Pomodoro'"
+[class.shortBreak]="this.timerState=='ShortBreak'"
+[class.longBreak]="this.timerState=='LongBreak'">
+    <div class="buttons-container">
+        <button (click)="stateClick('pomodoro')">Pomodoro</button>
+        <button (click)="stateClick('shortBreak')">Short Break</button>
+        <button (click)="stateClick('longBreak')">Long Break</button>
+    </div>
+    <span class="timer-seconds">{{this.timerSeconds}}</span>
+    <button (click)="actionClick()">{{ this.runningTimer ? 'Stop' : 'Start' }}</button>
+</div>
