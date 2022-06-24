@@ -7,7 +7,7 @@
         <button class="button" [class.state-selected]="this.timerState=='ShortBreak'" (click)="stateClick('shortBreak')">Short Break</button>
         <button class="button" [class.state-selected]="this.timerState=='LongBreak'" (click)="stateClick('longBreak')">Long Break</button>
     </div>
-    <span class="timer-seconds">{{ this.timerSeconds }}</span>
+    <span class="timer-time">{{ ((this.timerMinutes.toString().length==1) ? '0'+this.timerMinutes : this.timerMinutes) + ':' + ((this.timerSeconds.toString().length==1) ? '0'+this.timerSeconds : this.timerSeconds) }}</span>
     <button class="button" (click)="actionClick()">{{ this.runningTimer ? 'Pause' : 'Start' }}</button>
     <span class="pomodoro-counter">#{{ this.pomodoroCounter }}</span>
 </div>

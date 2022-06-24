@@ -7,15 +7,17 @@ import { timerStates } from '../timerStates';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit {
-  pomodoroTime:number = 3;
-  shortBreakTime:number = 2;
-  longBreakTime:number = 4;
+  pomodoroTime:number = 1500;
+  shortBreakTime:number = 300;
+  longBreakTime:number = 900;
   timerState:timerStates = timerStates.Pomodoro;
-  timerSeconds:number = this.pomodoroTime;
+  timerTime:number = this.pomodoroTime;
   pomodoroCounter:number = 0;
   runningTimer:boolean = false;
-  timerInterval = setInterval(() => this.timerSeconds--, 1000);
-  timerAlert = new Audio("../../../assets/audio/alarm.wav")
+  timerInterval = setInterval(() => this.timerTime--, 1000);
+  timerAlert = new Audio("../../../assets/audio/alarm.wav");
+  timerMinutes:number = 0;
+  timerSeconds:number = 0;
 
   constructor() { }
 
@@ -23,6 +25,7 @@ export class TimerComponent implements OnInit {
     if (this.timerInterval) clearInterval(this.timerInterval);
 
     this.timerAlert.load();
+    this.timerFormat();
   }
 
   stateClick(state:string): void{
@@ -30,18 +33,20 @@ export class TimerComponent implements OnInit {
 
     switch(state){
       case 'pomodoro':
-        this.timerSeconds = this.pomodoroTime;
+        this.timerTime = this.pomodoroTime;
         this.timerState = timerStates.Pomodoro;
         break;
       case 'shortBreak':
         this.timerState = timerStates.ShortBreak;
-        this.timerSeconds = this.shortBreakTime;
+        this.timerTime = this.shortBreakTime;
         break;
       case 'longBreak':
         this.timerState = timerStates.LongBreak;
-        this.timerSeconds = this.longBreakTime;
+        this.timerTime = this.longBreakTime;
         break;
     }
+
+    this.timerFormat();
   }
 
 
@@ -50,8 +55,10 @@ export class TimerComponent implements OnInit {
 
     if(this.runningTimer){
       this.timerInterval = setInterval(() => {
-        if(this.timerSeconds > 0)
-          this.timerSeconds--;
+        if(this.timerTime > 0){
+          this.timerTime--;
+          this.timerFormat();
+        }
         else
           this.timerEnds();
       }, 1000);
@@ -65,7 +72,7 @@ export class TimerComponent implements OnInit {
     clearInterval(this.timerInterval);
     this.runningTimer = false;
 
-    if(this.timerSeconds == 0){
+    if(this.timerTime == 0){
       this.timerAlert.play();
       alert("Timer ends!");
 
@@ -85,15 +92,21 @@ export class TimerComponent implements OnInit {
 
     switch(this.timerState){
       case timerStates.Pomodoro:
-        this.timerSeconds = this.pomodoroTime;
+        this.timerTime = this.pomodoroTime;
         break;
       case timerStates.ShortBreak:
-        this.timerSeconds = this.shortBreakTime;
+        this.timerTime = this.shortBreakTime;
         break;
       case timerStates.LongBreak:
-        this.timerSeconds = this.longBreakTime;
+        this.timerTime = this.longBreakTime;
         break;
     }
+
+  }
+
+  timerFormat(): void{
+    this.timerMinutes = Math.floor(this.timerTime/60);
+    this.timerSeconds = this.timerTime - this.timerMinutes * 60;
   }
 
 }
