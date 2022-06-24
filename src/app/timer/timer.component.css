@@ -1,6 +1,6 @@
 .timer-container{
     display: flex;
-    justify-content: center;
+    align-items: center;
     flex-direction: column;
     margin: 25px;
     padding: 25px;
@@ -9,6 +9,7 @@
 .buttons-container{
     display: flex;
     justify-content: space-between;
+    width: 100%;
     margin: 10px 0;
 }
 
@@ -18,8 +19,13 @@
     margin: 25px 0;
 }
 
+.pomodoro-counter{
+    margin-top: 25px;
+    font-size: large;
+}
+
 .pomodoro{
-    background-color: indianred;
+    background-color: #e77272;
 }
 
 .shortBreak{
@@ -28,4 +34,35 @@
 
 .longBreak{
     background-color: royalblue;
+}
+
+.buttons-container .button{
+    background-color: rgba(0,0,0,0.25);
+    color: whitesmoke;
+}
+
+.button{
+    border-radius: 10px;
+    height: 30px;
+    padding: 0 25px;
+    border: 0;
+    font-size: large;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+.timer-container > .button{
+    background-color: whitesmoke;
+    color: black;
+    color: rgba(0,0,0,0.75);
+    width: 50%;
+    height: 50px;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.buttons-container .state-selected{
+    background-color: rgba(0,0,0,0.60);
 }

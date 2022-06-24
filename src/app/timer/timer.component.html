@@ -3,10 +3,11 @@
 [class.shortBreak]="this.timerState=='ShortBreak'"
 [class.longBreak]="this.timerState=='LongBreak'">
     <div class="buttons-container">
-        <button (click)="stateClick('pomodoro')">Pomodoro</button>
-        <button (click)="stateClick('shortBreak')">Short Break</button>
-        <button (click)="stateClick('longBreak')">Long Break</button>
+        <button class="button" [class.state-selected]="this.timerState=='Pomodoro'" (click)="stateClick('pomodoro')">Pomodoro</button>
+        <button class="button" [class.state-selected]="this.timerState=='ShortBreak'" (click)="stateClick('shortBreak')">Short Break</button>
+        <button class="button" [class.state-selected]="this.timerState=='LongBreak'" (click)="stateClick('longBreak')">Long Break</button>
     </div>
-    <span class="timer-seconds">{{this.timerSeconds}}</span>
-    <button (click)="actionClick()">{{ this.runningTimer ? 'Stop' : 'Start' }}</button>
+    <span class="timer-seconds">{{ this.timerSeconds }}</span>
+    <button class="button" (click)="actionClick()">{{ this.runningTimer ? 'Pause' : 'Start' }}</button>
+    <span class="pomodoro-counter">#{{ this.pomodoroCounter }}</span>
 </div>
